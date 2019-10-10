@@ -37,7 +37,10 @@ class SpotifyAPI{
             this.credentialsGrant(); 
             const data = await this.spotifyapi.searchTracks(query, {limit: 1, offset: 0});
             return {
+                title: data.body.tracks.items[0].name,
                 link: data.body.tracks.items[0].external_urls.spotify,
+                cover: data.body.tracks.items[0].album.images[0].url,
+                artist: data.body.tracks.items[0].artists[0].name,
             }
         }catch(err){
             console.log(err);

@@ -11,8 +11,8 @@ class ConvertController{
         let url = req.body.url;
         let id = ConvertController.getID(url);
         const {name, artist, album} = await spotifyAPI.getTrack(id);
-        let link = await Deezer.getTrackLink(name, artist, album);
-        res.json(link);
+        let result = await Deezer.getTrackLink(name, artist, album);
+        res.json(result);
     }
 
     async deezerToSpotify(req, res){
@@ -20,8 +20,8 @@ class ConvertController{
         let id = ConvertController.getID(url);
         let {name, artist} = await Deezer.getTrackName(id); // armazena nome da música
         let query = `track:${name} artist:${artist}`;
-        const {link} = await spotifyAPI.searchTrack(query);
-        res.json(link);
+        const result = await spotifyAPI.searchTrack(query);
+        res.json(result);
     }
 }
 module.exports = new ConvertController();

@@ -11,7 +11,11 @@ class DeezerAPI{
         try {
             const url = `${this.query}track:"${name}"artist:"${artist}"album:"${album}"`;
             const result = await axios.get(url);
-            return result.data.data[0].link;
+            let {title_short, link} = result.data.data[0];
+            let cover_album = result.data.data[0].album.cover_xl;
+            let artist_name = result.data.data[0].artist.name;
+            return {title: title_short, cover: cover_album, artist: artist_name, link: link};
+
         } catch (err) {
             console.log(err);
         }
