@@ -9,7 +9,8 @@ class DeezerAPI{
     
     async getTrackLink(name, artist, album){
         try {
-            const url = `${this.query}track:"${name}"artist:"${artist}"album:"${album}"`;
+            const url = `${this.query}track:"${name}"artist:"${artist}"album:"${album}"`
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, ""); //retira os acentos
             const result = await axios.get(url);
             let {title_short, link} = result.data.data[0];
             let cover_album = result.data.data[0].album.cover_xl;
